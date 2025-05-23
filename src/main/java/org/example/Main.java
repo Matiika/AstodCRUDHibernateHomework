@@ -1,8 +1,7 @@
 package org.example;
 
-import org.example.dao.UserDao;
 import org.example.entity.User;
-import org.example.service.UserService;
+import org.example.service.UserServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -10,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        UserService userService = new UserService();
+        UserServiceImpl userServiceImpl = new UserServiceImpl();
 
         int choice;
 
@@ -49,12 +48,12 @@ public class Main {
                     newUser.setEmail(email);
                     newUser.setAge(age);
                     newUser.setCreatedAt(LocalDateTime.now());
-                    userService.save(newUser);
+                    userServiceImpl.save(newUser);
                     System.out.println(" Пользователь добавлен.");
                 }
                 case 2 -> {
                     System.out.println(" Все пользователи:");
-                    for (User u : userService.getAllUsers()) {
+                    for (User u : userServiceImpl.getAllUsers()) {
                         System.out.println(u);
                     }
                 }
@@ -62,7 +61,7 @@ public class Main {
                     System.out.print("Введите ID: ");
                     int id = scanner.nextInt();
                     scanner.nextLine();
-                    User user = userService.getUserById(id);
+                    User user = userServiceImpl.getUserById(id);
                     if (user != null) {
                         System.out.println(user);
                     } else {
@@ -73,7 +72,7 @@ public class Main {
                     System.out.print("ID для обновления: ");
                     int id = scanner.nextInt();
                     scanner.nextLine();
-                    User user = userService.getUserById(id);
+                    User user = userServiceImpl.getUserById(id);
                     if (user != null) {
                         System.out.print("Новое имя: ");
                         user.setName(scanner.nextLine());
@@ -85,7 +84,7 @@ public class Main {
                         user.setAge(scanner.nextInt());
                         scanner.nextLine();
 
-                        userService.save(user);
+                        userServiceImpl.save(user);
                         System.out.println("Пользователь обновлён.");
                     } else {
                         System.out.println("Пользователь не найден.");
@@ -95,7 +94,7 @@ public class Main {
                     System.out.print("ID для удаления: ");
                     int id = scanner.nextInt();
                     scanner.nextLine();
-                    userService.deleteById(id);
+                    userServiceImpl.deleteById(id);
                     System.out.println("Пользователь удалён, если существовал.");
                 }
                 case 0 -> System.out.println("Выход из программы.");
