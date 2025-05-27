@@ -1,9 +1,6 @@
 package org.example.service;
 
 import org.example.entity.User;
-import org.example.utils.HibernateSessionFactoryUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.util.List;
 

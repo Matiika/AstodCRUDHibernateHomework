@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserDaoImpl implements UserDao{
 
-    public void save (Session session, User user) {
+    public void saveOrUpdate (Session session, User user) {
         session.merge(user);
     }
 

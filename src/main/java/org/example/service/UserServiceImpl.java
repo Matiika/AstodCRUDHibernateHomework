@@ -1,6 +1,6 @@
 package org.example.service;
 
-import org.example.dao.UserDaoImpl;
+import org.example.dao.UserDao;
 import org.example.entity.User;
 import org.example.utils.HibernateSessionFactoryUtil;
 import org.hibernate.Session;
@@ -13,13 +13,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    private final UserDaoImpl userDaoImpl = new UserDaoImpl();
+    private final UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     public void save(User user) {
         Transaction transaction = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            userDaoImpl.save(session, user);
+            userDao.saveOrUpdate(session, user);
             transaction.commit();
             log.info("Saved user: {}", user);
         } catch (Exception e) {
@@ -36,7 +40,7 @@ public class UserServiceImpl implements UserService {
         Transaction transaction = null;
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            deleted = userDaoImpl.deleteById(session, id);
+            deleted = userDao.deleteById(session, id);
             transaction.commit();
             if (deleted) {
                 log.info("Deleted user with id={}", id);
@@ -54,13 +58,13 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return userDaoImpl.findAll(session);
+            return userDao.findAll(session);
         }
     }
 
     public User getUserById(int id) {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return userDaoImpl.findById(session, id);
+            return userDao.findById(session, id);
         }
     }
 
