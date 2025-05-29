@@ -17,7 +17,6 @@
     </properties>
 
     <dependencies>
-        <!-- УДАЛИТЬ старый JUnit 3.8.1 и заменить на JUnit 5 -->
         <!-- JUnit 5 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
