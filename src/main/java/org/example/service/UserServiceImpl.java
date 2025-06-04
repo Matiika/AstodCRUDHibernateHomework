@@ -1,6 +1,5 @@
 package org.example.service;
 
-import jakarta.persistence.EntityNotFoundException;
 import org.example.dao.UserDao;
 import org.example.entity.User;
 import org.example.utils.HibernateSessionFactoryUtil;

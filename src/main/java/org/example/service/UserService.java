@@ -5,8 +5,8 @@ import org.example.entity.User;
 import java.util.List;
 
 public interface UserService {
-    public void save(User user);
-    public boolean deleteById(Integer id);
-    public List<User> getAllUsers();
-    public User getUserById(int id);
+    void save(User user);
+    boolean deleteById(Integer id);
+    List<User> getAllUsers();
+    User getUserById(int id);
 }
