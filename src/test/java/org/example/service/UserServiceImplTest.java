@@ -16,8 +16,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
+import org.hibernate.service.spi.ServiceException;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -77,7 +78,7 @@ class UserServiceImplTest {
             doThrow(new RuntimeException("Database error")).when(userDao).saveOrUpdate(session, testUser);
             when(transaction.isActive()).thenReturn(true);
 
-            assertDoesNotThrow(() -> userService.save(testUser));
+            assertThrows(ServiceException.class, () -> userService.save(testUser));
 
             verify(userDao).saveOrUpdate(session, testUser);
             verify(transaction).isActive();
