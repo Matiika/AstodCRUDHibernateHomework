@@ -69,7 +69,8 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() {
         try (Session session = HibernateSessionFactoryUtil.getSessionFactory().openSession()) {
-            return userDao.findAll(session);
+            List<User> userList = userDao.findAll(session);
+            return userList;
         } catch (Exception e) {
             log.error("Не удалось получить список пользователей", e);
             throw new ServiceException("Не удалось получить список пользователей", e);
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     public User getUserById(int id) {
-        if (id < 0) {
+        if (id <= 0) {
             throw new ServiceException("Неверный id для поиска: " + id);
         }
 
